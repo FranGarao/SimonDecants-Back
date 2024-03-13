@@ -1,7 +1,10 @@
-/*import { User } from '../models/user';*/
-// import users from "../../users.json";
+import { initializeUser } from "../db/models/User";
+import { sequelizeInstance } from "../db/dbInstance";
+const User = initializeUser(sequelizeInstance);
 
-export const getUsers = async () => {
-  // const users = await User.find();
-  return [];
-};
+export class userService {
+  getUsers = async () => {
+    const users = await User.findAll({ raw: true });
+    return users;
+  };
+}
