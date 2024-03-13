@@ -1,21 +1,21 @@
 {
   "development": {
-    "username": "root",
-    "password": "",
+    "username": "fran",
+    "password": "26deoctubrE26",
     "database": "simon_decants",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": null,
+    "username": "fran",
+    "password": "26deoctubrE26",
     "database": "simon_decants",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
+    "username": "fran",
+    "password": "26deoctubrE26",
     "database": "simon_decants",
     "host": "127.0.0.1",
     "dialect": "mysql"
