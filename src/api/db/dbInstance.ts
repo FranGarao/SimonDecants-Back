@@ -8,7 +8,7 @@ const sequelizeInstance = new Sequelize(
   "26deoctubrE26",
   {
     host: "127.0.0.1",
-    dialect: "mysql", // Replace 'mysql' with the desired dialect
+    dialect: "mysql"
   }
 );
 
