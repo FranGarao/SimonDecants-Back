@@ -1,2 +1,8 @@
+# node modules
 NODE_MODULES
+
+# local env
 .env
+
+# database instance
+src\api\db\dbInstance.ts
