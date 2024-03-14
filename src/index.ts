@@ -2,16 +2,22 @@ import express from "express";
 const app = express();
 import dotenv from "dotenv";
 dotenv.config();
-app.use(express.json());
-
+const cors = require('cors');
 const PORT = process.env.PORT || 3001;
+const API = process.env.API  || "/api";
 
 /*Import Routes*/
 import usersRoutes from "./api/routes/users.routes";
 
-app.get("/", usersRoutes);
+/*Middlewares*/
+app.use(express.json());
+app.use(cors());
 
-app.listen(PORT, () => {
+/*Routes*/
+app.use(`${API}/users`, usersRoutes);
+
+/*Inicializar el servidor*/
+app.listen(Number(PORT), '0.0.0.0', () => {
   console.log(
     `Server is running on http://localhost:${PORT}\n\nHave a nice Development :)`
   );

@@ -6,7 +6,7 @@ export class User extends Model {
   public name!: string;
   public last_name!: string;
   public email!: string;
-  public normalEmail!: string;
+  public normal_email!: string;
   public password!: string;
   public cp!: string;
   // public phone!: string;
@@ -32,7 +32,7 @@ export function initializeUser(sequelize: Sequelize) {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      normalEmail: {
+      normal_email: {
         type: DataTypes.STRING,
       },
       password: {
@@ -43,10 +43,25 @@ export function initializeUser(sequelize: Sequelize) {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      // phone: {
-      //   type: DataTypes.STRING,
-      //   allowNull: false,
-      // },
+      phone: {
+        type: DataTypes.STRING,
+      },
+      address:{
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      address_number:{
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      city:{
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      province:{
+        type: DataTypes.STRING,
+        allowNull: false,
+      }
     },
     {
       sequelize, // passing the `sequelize` instance is required

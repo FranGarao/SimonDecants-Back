@@ -1,10 +1,13 @@
 import express from "express";
 const router = express.Router();
-import { getUsers } from "../controllers/usersController";
+import { usersController } from "../controllers/usersController";
 
-//router.get("/", (_req, res) => {
-//   res.send("Hello World!");
-// });
-router.get("/", getUsers);
+const userController = new usersController();
+/*Routes*/
+//GET api/users/
+router.get("/", userController.getUsers);
+
+//POST api/users/create
+router.post("/create", userController.createOne);
 
 export default router;
