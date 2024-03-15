@@ -46,22 +46,22 @@ export function initializeUser(sequelize: Sequelize) {
       phone: {
         type: DataTypes.STRING,
       },
-      address:{
+      address: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      address_number:{
+      address_number: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      city:{
+      city: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      province:{
+      province: {
         type: DataTypes.STRING,
         allowNull: false,
-      }
+      },
     },
     {
       sequelize, // passing the `sequelize` instance is required
