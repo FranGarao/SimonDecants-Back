@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { userService } from "../services/usersService";
 import { Users } from "../interfaces/users";
+// const jwt = require("jsonwebtoken");
 
 const userServiceInstance = new userService();
 
@@ -34,6 +35,23 @@ export class usersController {
       .createOne(newUser)
       .then((user) => {
         res.json(user);
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+      });
+  };
+  login = async (req: Request, res: Response) => {
+    const email = req.body.email;
+    const password = req.body.password;
+    userServiceInstance
+      .login(email, password)
+      .then((user) => {
+        if (user) {
+          //Genero el JWT
+          // const token = jwt.sign({ user }, process.env.JWT_SECRET,
+          res.json(user);
+        }
       })
       .catch((error) => {
         console.error(error);

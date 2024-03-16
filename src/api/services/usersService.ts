@@ -12,4 +12,13 @@ export class userService {
     const user = await User.create(newUser);
     return user;
   };
+  login = async (email: string, password: string) => {
+    const user = await User.findOne({ where: { email, password }, raw: true });
+    if (user) {
+      console.log(user);
+      return user;
+    } else {
+      return { error: true, message: "User not found" };
+    }
+  };
 }

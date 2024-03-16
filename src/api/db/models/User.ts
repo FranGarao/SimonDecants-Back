@@ -39,28 +39,8 @@ export function initializeUser(sequelize: Sequelize) {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      cp: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       phone: {
         type: DataTypes.STRING,
-      },
-      address: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      address_number: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      city: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      province: {
-        type: DataTypes.STRING,
-        allowNull: false,
       },
     },
     {
