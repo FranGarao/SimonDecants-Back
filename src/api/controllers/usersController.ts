@@ -1,8 +1,8 @@
+// import { Session } from "express-session";
 import { Request, Response } from "express";
 import { UsersService } from "../services/UsersService";
 // import { User } from "../interfaces/User";
-// const bcrypt = require("bcrypt");
-// const jwt = require("jsonwebtoken");
+import { User } from "../db/models/User";
 
 const userServiceInstance = new UsersService();
 
@@ -29,17 +29,16 @@ export class usersController {
         res.status(500).json({ message: "Internal server error" });
       });
   };
-  login = async (req: Request, res: Response) => {
+  login = async (req: any, res: Response) => {
     const email = req.body.email;
     const password = req.body.password;
     userServiceInstance
       .login(email, password)
       .then((user) => {
-        if (user) {
-          //Genero el JWT
-          // const token = jwt.sign({ user }, process.env.JWT_SECRET,
+        if (user && "id" in user) {
           res.json(user);
         }
+        // }
       })
       .catch((error) => {
         console.error(error);
@@ -56,5 +55,20 @@ export class usersController {
         console.error({ error });
         res.status(500).json({ message: "Internal server error" });
       });
+  };
+  logOut = async (req: any, res: Response) => {
+    req.session.destroy((error: any) => {
+      if (error) {
+        console.log("Error al cerrar sesion", error);
+      } else {
+        res.clearCookie("token");
+        res.json({ message: "Logged out" });
+      }
+    });
+  };
+  setCookies = async (req: any, res: Response) => {
+    const userLogin = await User.findByPk(18);
+    userServiceInstance.setCookies(req, res, userLogin);
+    res.json({ message: "Cookies set" });
   };
 }

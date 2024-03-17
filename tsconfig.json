@@ -110,5 +110,9 @@
     /* Advanced Options */
     "resolveJsonModule": true,
     // "resolveOnPlatform": "Node",                      /* Specify the platform for which to resolve types. */
-  }
+  },
+  // "include": [
+  //   "src/**/*",
+  //   "custom.d.ts"
+  //   ],
 }

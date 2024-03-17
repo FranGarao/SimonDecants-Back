@@ -17,3 +17,5 @@ function authenticateToken(
     return next(); // pass the execution off to whatever request the client intended
   });
 }
+
+export default authenticateToken;

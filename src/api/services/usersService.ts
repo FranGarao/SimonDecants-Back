@@ -1,6 +1,7 @@
 import { initializeUser } from "../db/models/User";
 import { sequelizeInstance } from "../db/dbInstance";
 import { initializeUserLocation } from "../db/models/UserLocation";
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 // import { Location } from "../interfaces/Location";
 import { User } from "../interfaces/User";
@@ -53,56 +54,38 @@ export class UsersService {
     return location;
   };
   login = async (email: string, password: string) => {
-    const user = await User.findOne({ where: { email, password }, raw: true });
-    if (user) {
-      console.log(user);
+    const user = await User.findOne({ where: { email }, raw: true });
+    const validPw = bcrypt.compareSync(password, user?.password);
+    if (validPw) {
       return user;
     } else {
-      return { error: true, message: "User not found" };
+      return { error: true, message: "Invalid password" };
     }
   };
-  // setLocations = async (id: number) => {
+  logOut = async () => {};
   getLocations = async () => {
     const locations = await UserLocation.findAll({
       raw: true,
     });
     return locations;
   };
+  setCookies = async (req: any, res: any, user: any) => {
+    // Genero el JWT
+    // if (req.body.remember) {
+    const token = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, {
+      expiresIn: "365d",
+    });
+    const cookieOptions = {
+      maxAge: 1000 * 60 * 60 * 24 * 365,
+      domain: "localhost",
+      path: "/",
+      secure: false,
+      httpOnly: false, // Set httpOnly to true for security reasons (prevents client-side JavaScript from accessing the cookie)
+
+      // secure: process.env.NODE_ENV === 'production' // Uncomment this line in production to ensure cookies are sent over HTTPS
+    };
+
+    res.cookie("token", token, cookieOptions);
+    req.session.user = user;
+  };
 }
-
-// login: (req, res) => {
-//   const userInJson = model.findByEmail(req.body.email);
-//   //caso de que el mail no este registrado
-//   if (!userInJson) {
-//     return res.redirect("/user/login?error=Email no registrado");
-//   }
-
-//aca deshasheamos la contrasenia y la comparamos con la ingresada
-//   console.log(req.body.password, userInJson.password);
-//   const validPw = bcrypt.compareSync(req.body.password, userInJson.password);
-//   if (validPw) {
-//     // es lo mismo que poner solo req.body.on (porque si es !== "on" seria undefinded)
-//     if (req.body.remember === "on") {
-//       //creamos una cookie, guardamos el id del usuario y hacemos que expire en un anio
-//       res.cookie("email", userInJson.email, {
-//         maxAge: 1000 * 60 * 60 * 24 * 365,
-//       });
-//     }
-
-//     req.session.user = userInJson;
-//     res.redirect("/products");
-//   } else {
-//     res.redirect("/user/login?error=Password incorrecta");
-//   }
-// },
-// close: (req, res, next) => {
-//   req.session.destroy((err) => {
-//     if (err) {
-//       console.log("Error al cerrar sesion:", err);
-//       res.sendStatus(500);
-//     } else {
-//       res.clearCookie("email");
-//       res.redirect("/products");
-//     }
-//   });
-// },
