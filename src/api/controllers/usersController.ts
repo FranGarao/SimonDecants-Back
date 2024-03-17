@@ -19,13 +19,15 @@ export class usersController {
       });
   };
   createOne = async (req: Request, res: Response) => {
-    try {
-      const newUser = await userServiceInstance.createOne(req.body);
-      res.json(newUser);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Internal server error" });
-    }
+    userServiceInstance
+      .createOne(req.body)
+      .then((newUser) => {
+        res.json(newUser);
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+      });
   };
   login = async (req: Request, res: Response) => {
     const email = req.body.email;
