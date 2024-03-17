@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { userService } from "../services/usersService";
-import { Users } from "../interfaces/users";
+import { Users } from "../interfaces/Users";
 // const jwt = require("jsonwebtoken");
 
 const userServiceInstance = new userService();
