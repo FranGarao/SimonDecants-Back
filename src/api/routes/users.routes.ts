@@ -13,4 +13,7 @@ router.post("/create", usersControllerInstance.createOne);
 //POST api/users/login
 router.post("/login", usersControllerInstance.login);
 
+//!posiblemente se borre, es de prueba GET api/users/locations
+router.get("/locations", usersControllerInstance.getLocations);
+
 export default router;

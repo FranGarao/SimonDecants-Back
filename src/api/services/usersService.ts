@@ -1,7 +1,9 @@
 import { initializeUser } from "../db/models/User";
 import { sequelizeInstance } from "../db/dbInstance";
+import { initializeUserLocation } from "../db/models/UserLocation";
 // import { Users } from "../interfaces/users";
 const User = initializeUser(sequelizeInstance);
+const UserLocation = initializeUserLocation(sequelizeInstance);
 
 export class UsersService {
   getUsers = async () => {
@@ -22,6 +24,11 @@ export class UsersService {
     }
   };
   // setLocations = async (id: number) => {
-
+  getLocations = async () => {
+    const locations = await UserLocation.findAll({
+      raw: true,
+    });
+    return locations;
+  };
   // };
 }

@@ -60,4 +60,15 @@ export class usersController {
         res.status(500).json({ message: "Internal server error" });
       });
   };
+  getLocations = async (_req: Request, res: Response) => {
+    userServiceInstance
+      .getLocations()
+      .then((locations) => {
+        res.json(locations);
+      })
+      .catch((error) => {
+        console.error({ error });
+        res.status(500).json({ message: "Internal server error" });
+      });
+  };
 }
