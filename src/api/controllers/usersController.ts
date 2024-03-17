@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { userService } from "../services/usersService";
-import { Users } from "../interfaces/users";
+import { UsersService } from "../services/UsersService";
+import { User } from "../interfaces/User";
 // const jwt = require("jsonwebtoken");
 
-const userServiceInstance = new userService();
+const userServiceInstance = new UsersService();
 
 export class usersController {
   getUsers = async (_req: Request, res: Response) => {
@@ -12,24 +12,26 @@ export class usersController {
       .then((users) => {
         res.json(users);
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error(error);
         res.status(500).json({ message: "Internal server error" });
       });
   };
   createOne = async (req: Request, res: Response) => {
-    const newUser: Users = {
+    const newUser: User = {
       name: req.body.name,
       last_name: req.body.last_name,
       email: req.body.email,
       normal_email: req.body.normal_email,
       password: req.body.password,
-      cp: req.body.cp,
+      location: {
+        address: req.body.address,
+        address_number: req.body.address_number,
+        city: req.body.city,
+        province: req.body.province,
+        cp: req.body.cp,
+      },
       phone: req.body.phone,
-      address: req.body.address,
-      address_number: req.body.address_number,
-      city: req.body.city,
-      province: req.body.province,
     };
     userServiceInstance
       .createOne(newUser)
@@ -55,6 +57,17 @@ export class usersController {
       })
       .catch((error) => {
         console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+      });
+  };
+  getLocations = async (_req: Request, res: Response) => {
+    userServiceInstance
+      .getLocations()
+      .then((locations) => {
+        res.json(locations);
+      })
+      .catch((error) => {
+        console.error({ error });
         res.status(500).json({ message: "Internal server error" });
       });
   };

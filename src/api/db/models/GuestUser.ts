@@ -1,22 +1,25 @@
 // En tu archivo de modelo
 import { Sequelize, DataTypes, Model } from "sequelize";
 
-export class User extends Model {
+export class GuestUser extends Model {
   public id!: number; // Note that the `null assertion` `!` is required in strict mode.
   public name!: string;
   public last_name!: string;
   public email!: string;
-  public normal_email!: string;
-  public password!: string;
-  public cp!: string;
   public phone!: string;
+  public province!: string;
+  public city!: string;
+  public address!: string;
+  public address_number!: number;
+  public cp!: string;
 }
 
-export function initializeUser(sequelize: Sequelize) {
-  User.init(
+export function initializeGuestUser(sequelize: Sequelize) {
+  GuestUser.init(
     {
       id: {
         type: DataTypes.INTEGER,
+        allowNull: false,
         primaryKey: true,
         autoIncrement: true,
       },
@@ -32,23 +35,37 @@ export function initializeUser(sequelize: Sequelize) {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      normal_email: {
-        type: DataTypes.STRING,
-      },
-      password: {
+      phone: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      phone: {
+      province: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      city: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      address: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      address_number: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      cp: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     {
       sequelize,
-      tableName: "users",
+      tableName: "guest_users",
       timestamps: false,
     }
   );
 
-  return User;
+  return GuestUser;
 }
