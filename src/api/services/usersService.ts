@@ -1,6 +1,7 @@
 import { initializeUser } from "../db/models/User";
 import { sequelizeInstance } from "../db/dbInstance";
 import { initializeUserLocation } from "../db/models/UserLocation";
+const bcrypt = require("bcrypt");
 // import { Location } from "../interfaces/Location";
 import { User } from "../interfaces/User";
 // import { Users } from "../interfaces/users";
@@ -16,9 +17,36 @@ export class UsersService {
     const users = await User.findAll({ raw: true });
     return users;
   };
-  createOne = async (newUser: any) => {
-    const user = await User.create(newUser);
-    return user;
+  createOne = async (userData: any) => {
+    const hashedPw = bcrypt.hashSync(userData.password, 11);
+    const normalEmail = userData.email.toUpperCase();
+    const user = "user";
+    const newUser: any = {
+      name: userData.name,
+      last_name: userData.last_name,
+      email: userData.email,
+      normal_email: normalEmail,
+      password: hashedPw,
+      phone: userData.phone,
+      type: user,
+    };
+
+    const userRegistered = await this.checkUserRegistered(newUser.normal_email);
+    if (userRegistered) {
+      throw new Error("User already registered");
+    }
+    const createdUser = await User.create(newUser);
+    const newLocation = {
+      user_id: createdUser.id,
+      province: userData.province,
+      city: userData.city,
+      address: userData.address,
+      address_number: userData.address_number,
+      cp: userData.cp,
+    };
+
+    const location = await this.createLocation(newLocation);
+    return { user: createdUser, location };
   };
   createLocation = async (newLocation: any) => {
     const location: any = await UserLocation.create(newLocation);
