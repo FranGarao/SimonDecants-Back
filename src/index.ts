@@ -8,13 +8,17 @@ const API = process.env.API || "/api";
 
 /*Import Routes*/
 import usersRoutes from "./api/routes/users.routes";
+import productsRoutes from "./api/routes/products.routes";
 
 /*Middlewares*/
 app.use(express.json());
 app.use(cors());
 
 /*Routes*/
+//users
 app.use(`${API}/users`, usersRoutes);
+//products
+app.use(`${API}/products`, productsRoutes);
 
 /*Inicializar el servidor*/
 app.listen(

@@ -1,5 +1,6 @@
 // En tu archivo de modelo
 import { Sequelize, DataTypes, Model } from "sequelize";
+import { User } from "./User";
 
 export class UserLocation extends Model {
   public id!: number; // Note that the `null assertion` `!` is required in strict mode.
@@ -51,6 +52,6 @@ export function initializeUserLocation(sequelize: Sequelize) {
       timestamps: false,
     }
   );
-
+  UserLocation.belongsTo(User, { foreignKey: "user_id" });
   return UserLocation;
 }

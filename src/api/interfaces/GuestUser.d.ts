@@ -1,4 +1,4 @@
-export interface guest_users {
+export interface GuestUser {
   name: string;
   last_name: string;
   email: string;

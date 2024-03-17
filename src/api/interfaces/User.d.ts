@@ -1,5 +1,5 @@
 import { Location } from "./Location";
-export interface Users {
+export interface User {
   name: string;
   last_name: string;
   location: Location;

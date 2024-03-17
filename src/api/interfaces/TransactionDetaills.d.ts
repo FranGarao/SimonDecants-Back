@@ -1,5 +1,6 @@
-import { Transactions } from "./Transactions";
-export interface TransactionsDetails {
+import { Size } from "./Size";
+
+export interface TransactionDetails {
   transaction_id: string;
   product_id: string;
   product_quantity: number;
@@ -7,4 +8,5 @@ export interface TransactionsDetails {
   unit_price: number;
   tax: number;
   discount: number;
+  size: Size;
 }

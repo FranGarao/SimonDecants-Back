@@ -4,7 +4,6 @@ import { Sequelize, DataTypes, Model } from "sequelize";
 export class Product extends Model {
   public id!: number; // Note that the `null assertion` `!` is required in strict mode.
   public title!: string;
-  public price!: string;
   public category!: string;
   public gender!: string;
   public img!: string;
@@ -12,6 +11,7 @@ export class Product extends Model {
   public status!: string;
   public discount!: number;
   public brand!: string;
+  public size_id!: number;
 }
 
 export function initializeProduct(sequelize: Sequelize) {
@@ -24,10 +24,6 @@ export function initializeProduct(sequelize: Sequelize) {
         autoIncrement: true,
       },
       title: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      price: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -57,6 +53,10 @@ export function initializeProduct(sequelize: Sequelize) {
       },
       brand: {
         type: DataTypes.STRING,
+        allowNull: false,
+      },
+      size_id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },

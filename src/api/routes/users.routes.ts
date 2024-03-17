@@ -2,14 +2,15 @@ import express from "express";
 const router = express.Router();
 import { usersController } from "../controllers/usersController";
 
-const userController = new usersController();
+const usersControllerInstance = new usersController();
 /*Routes*/
 //GET api/users/
-router.get("/", userController.getUsers);
+router.get("/", usersControllerInstance.getUsers);
 
 //POST api/users/create
-router.post("/create", userController.createOne);
+router.post("/create", usersControllerInstance.createOne);
 
 //POST api/users/login
-router.post("/login", userController.login);
+router.post("/login", usersControllerInstance.login);
+
 export default router;

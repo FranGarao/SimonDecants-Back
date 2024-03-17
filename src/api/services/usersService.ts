@@ -3,7 +3,7 @@ import { sequelizeInstance } from "../db/dbInstance";
 // import { Users } from "../interfaces/users";
 const User = initializeUser(sequelizeInstance);
 
-export class userService {
+export class UsersService {
   getUsers = async () => {
     const users = await User.findAll({ raw: true });
     return users;
@@ -21,4 +21,7 @@ export class userService {
       return { error: true, message: "User not found" };
     }
   };
+  // setLocations = async (id: number) => {
+
+  // };
 }
