@@ -8,8 +8,8 @@ export class User extends Model {
   public email!: string;
   public normal_email!: string;
   public password!: string;
-  public cp!: string;
   public phone!: string;
+  public type!: string;
 }
 
 export function initializeUser(sequelize: Sequelize) {
@@ -41,6 +41,10 @@ export function initializeUser(sequelize: Sequelize) {
       },
       phone: {
         type: DataTypes.STRING,
+      },
+      type: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     {
