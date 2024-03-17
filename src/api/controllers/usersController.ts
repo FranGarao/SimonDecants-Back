@@ -24,12 +24,14 @@ export class usersController {
       email: req.body.email,
       normal_email: req.body.normal_email,
       password: req.body.password,
-      cp: req.body.cp,
+      location: {
+        address: req.body.address,
+        address_number: req.body.address_number,
+        city: req.body.city,
+        province: req.body.province,
+        cp: req.body.cp,
+      },
       phone: req.body.phone,
-      address: req.body.address,
-      address_number: req.body.address_number,
-      city: req.body.city,
-      province: req.body.province,
     };
     userServiceInstance
       .createOne(newUser)

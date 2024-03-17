@@ -9,7 +9,7 @@ export class User extends Model {
   public normal_email!: string;
   public password!: string;
   public cp!: string;
-  // public phone!: string;
+  public phone!: string;
 }
 
 export function initializeUser(sequelize: Sequelize) {
@@ -44,10 +44,11 @@ export function initializeUser(sequelize: Sequelize) {
       },
     },
     {
-      sequelize, // passing the `sequelize` instance is required
+      sequelize,
       tableName: "users",
       timestamps: false,
     }
   );
+
   return User;
 }
