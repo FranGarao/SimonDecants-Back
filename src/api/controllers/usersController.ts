@@ -1,6 +1,6 @@
 // import { Session } from "express-session";
 import { Request, Response } from "express";
-import { UsersService } from "../services/UsersService";
+import { UsersService } from "../services/usersService";
 // import { User } from "../interfaces/User";
 import { User } from "../db/models/User";
 

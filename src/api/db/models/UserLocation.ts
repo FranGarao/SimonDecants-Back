@@ -9,7 +9,7 @@ export class UserLocation extends Model {
   public city!: string;
   public address!: string;
   public address_number!: string;
-  public cp!: string;
+  public zip_code!: string;
 }
 
 export function initializeUserLocation(sequelize: Sequelize) {
@@ -41,7 +41,7 @@ export function initializeUserLocation(sequelize: Sequelize) {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      cp: {
+      zip_code: {
         type: DataTypes.STRING,
         allowNull: false,
       },
