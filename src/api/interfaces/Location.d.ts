@@ -4,5 +4,5 @@ export interface Location {
   address_number: string;
   city: string;
   province: string;
-  cp: string;
+  zip_code: string;
 }

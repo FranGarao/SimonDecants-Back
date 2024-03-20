@@ -7,4 +7,5 @@ export interface User {
   password: string;
   phone: string;
   type: string;
+  location: Location;
 }

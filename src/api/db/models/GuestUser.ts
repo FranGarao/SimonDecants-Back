@@ -11,7 +11,7 @@ export class GuestUser extends Model {
   public city!: string;
   public address!: string;
   public address_number!: number;
-  public cp!: string;
+  public zip_code!: string;
 }
 
 export function initializeGuestUser(sequelize: Sequelize) {
@@ -55,7 +55,7 @@ export function initializeGuestUser(sequelize: Sequelize) {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      cp: {
+      zip_code: {
         type: DataTypes.STRING,
         allowNull: false,
       },
