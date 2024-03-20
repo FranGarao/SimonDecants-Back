@@ -5,6 +5,6 @@ const productsControllerInstance = new productsController();
 
 /*Routes*/
 //GET /api/products
-router.get("/", productsControllerInstance.getProducts);
+router.get("/products", productsControllerInstance.getProducts);
 
 export default router;

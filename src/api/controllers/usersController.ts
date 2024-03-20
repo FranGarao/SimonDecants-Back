@@ -67,6 +67,7 @@ export class usersController {
     });
   };
   setCookies = async (req: any, res: Response) => {
+    //TODO: arreglar esto ya que no tiene que estar hardcodeado
     const userLogin = await User.findByPk(18);
     userServiceInstance.setCookies(req, res, userLogin);
     res.json({ message: "Cookies set" });
