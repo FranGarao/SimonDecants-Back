@@ -5,6 +5,9 @@ const productsControllerInstance = new productsController();
 
 /*Routes*/
 //GET /api/products
-router.get("/products", productsControllerInstance.getProducts);
+router.get("/", productsControllerInstance.getProducts);
+
+//POST /api/products/create/post
+router.post("/create/post",productsControllerInstance.PostCreate)
 
 export default router;
