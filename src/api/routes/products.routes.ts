@@ -8,6 +8,6 @@ const productsControllerInstance = new productsController();
 router.get("/", productsControllerInstance.getProducts);
 
 //POST /api/products/create/post
-router.post("/create/post",productsControllerInstance.PostCreate)
+router.post("/create", productsControllerInstance.PostCreate);
 
 export default router;

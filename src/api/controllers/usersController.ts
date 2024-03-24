@@ -1,7 +1,6 @@
 // import { Session } from "express-session";
 import { Request, Response } from "express";
-import { UsersService } from "../services/usersService";
-// import { User } from "../interfaces/User";
+import { UsersService } from "../services/UsersService";
 import { User } from "../db/models/User";
 
 const userServiceInstance = new UsersService();

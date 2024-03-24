@@ -2,7 +2,7 @@
 import { Sequelize, DataTypes, Model } from "sequelize";
 
 export class User extends Model {
-  public id!: number; // Note that the `null assertion` `!` is required in strict mode.
+  public id!: number; 
   public name!: string;
   public last_name!: string;
   public email!: string;
