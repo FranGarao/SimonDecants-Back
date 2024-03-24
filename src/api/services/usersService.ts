@@ -3,7 +3,7 @@ import { sequelizeInstance } from "../db/dbInstance";
 import { initializeUserLocation } from "../db/models/UserLocation";
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-// import { Location } from "../interfaces/Location";
+import { Location } from "../interfaces/Location";
 import { User } from "../interfaces/User";
 // import { Users } from "../interfaces/users";
 const User = initializeUser(sequelizeInstance);
@@ -18,17 +18,18 @@ export class UsersService {
     const users = await User.findAll({ raw: true });
     return users;
   };
-  createOne = async (userData: any) => {
-    const hashedPw = bcrypt.hashSync(userData.password, 11);
-    const normalEmail = userData.email.toUpperCase();
+  createOne = async (newUserData: User) => {
+    const hashedPw = bcrypt.hashSync(newUserData.password, 11);
+    const normalEmail = newUserData.email.toUpperCase();
     const user = "user";
+
     const newUser: any = {
-      name: userData.name,
-      last_name: userData.last_name,
-      email: userData.email,
+      name: newUserData.name,
+      last_name: newUserData.last_name,
+      email: newUserData.email,
       normal_email: normalEmail,
       password: hashedPw,
-      phone: userData.phone,
+      phone: newUserData.phone,
       type: user,
     };
 
@@ -37,13 +38,13 @@ export class UsersService {
       throw new Error("User already registered");
     }
     const createdUser = await User.create(newUser);
-    const newLocation = {
+    const newLocation: Location = {
       user_id: createdUser.id,
-      province: userData.province,
-      city: userData.city,
-      address: userData.address,
-      address_number: userData.address_number,
-      cp: userData.cp,
+      province: newUserData.location.province,
+      city: newUserData.location.city,
+      address: newUserData.location.address,
+      address_number: newUserData.location.address_number,
+      zip_code: newUserData.location.zip_code,
     };
 
     const location = await this.createLocation(newLocation);

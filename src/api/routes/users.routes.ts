@@ -8,13 +8,13 @@ const usersControllerInstance = new usersController();
 router.get("/", usersControllerInstance.getUsers);
 
 //POST api/users/create/post
-router.post("/create/post", usersControllerInstance.createOne);
+router.post("/create", usersControllerInstance.createOne);
 
 //POST api/users/login/post
 router.post("/login/post", usersControllerInstance.login);
 
 //GET api/users/login
-router.get("/login", usersControllerInstance.setCookies);
+router.get("/cookies", usersControllerInstance.setCookies);
 
 //GET api/users/locations
 router.get("/locations", usersControllerInstance.getLocations);
@@ -23,7 +23,6 @@ router.get("/locations", usersControllerInstance.getLocations);
 router.get("/logout", usersControllerInstance.logOut);
 
 export default router;
-
 
 // falta el get de /create
 // agrege /post en linea 10/11 y 13/14

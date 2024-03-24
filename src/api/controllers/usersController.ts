@@ -28,7 +28,7 @@ export class usersController {
         res.status(500).json({ message: "Internal server error" });
       });
   };
-  login = async (req: any, res: Response) => {
+  login = async (req: Request, res: Response) => {
     const email = req.body.email;
     const password = req.body.password;
     userServiceInstance
@@ -55,7 +55,7 @@ export class usersController {
         res.status(500).json({ message: "Internal server error" });
       });
   };
-  logOut = async (req: any, res: Response) => {
+  logOut = async (req: Request, res: Response) => {
     req.session.destroy((error: any) => {
       if (error) {
         console.log("Error al cerrar sesion", error);
@@ -65,7 +65,7 @@ export class usersController {
       }
     });
   };
-  setCookies = async (req: any, res: Response) => {
+  setCookies = async (req: Request, res: Response) => {
     //TODO: arreglar esto ya que no tiene que estar hardcodeado
     const userLogin = await User.findByPk(18);
     userServiceInstance.setCookies(req, res, userLogin);

@@ -5,8 +5,9 @@ const productServiceInstance = new ProductService();
 
 export class productsController {
   getProducts = async (_req: Request, res: Response) => {
+    //TODO: setear id de producto
     productServiceInstance
-      .getProducts()
+      .getProduct(1)
       .then((products) => {
         res.json(products);
       })
@@ -25,5 +26,5 @@ export class productsController {
         console.error(error);
         res.status(500).json({ message: "Internal server error" });
       });
-  }
+  };
 }

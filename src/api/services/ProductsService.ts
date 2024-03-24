@@ -1,18 +1,11 @@
 import { initializeProduct } from "../db/models/Product";
 import { sequelizeInstance } from "../db/dbInstance";
+import { Product } from "../interfaces/Product";
 const Product = initializeProduct(sequelizeInstance);
 
 export class ProductService {
-  getProducts = async () => {
-    const products = await Product.findAll({ raw: true });
-    return products;
-  };
-  createOne = async (newProduct: any) => {
+  createOne = async (newProduct: Partial<Product>) => {
     const product = await Product.create(newProduct);
-    return product;
-  };
-  updateOne = async (id: number, newProduct: any) => {
-    const product = await Product.update(newProduct, { where: { id } });
     return product;
   };
   deleteOne = async (id: number) => {
