@@ -16,6 +16,10 @@ export class ProductService {
     const product = await Product.findOne({ where: { id }, raw: true });
     return product;
   };
+  getAllProducts = async () => {
+    const products = await Product.findAll({ raw: true });
+    return products;
+  };
   getProductsByCategory = async (category: string) => {
     const products = await Product.findAll({ where: { category }, raw: true });
     return products;
