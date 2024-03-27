@@ -22,7 +22,7 @@ export class UsersService {
     const hashedPw = bcrypt.hashSync(newUserData.password, 11);
     const normalEmail = newUserData.email.toUpperCase();
     const user = "user";
-
+    //TODO Crear interfaz para newUser
     const newUser: any = {
       name: newUserData.name,
       last_name: newUserData.last_name,
@@ -38,6 +38,7 @@ export class UsersService {
       throw new Error("User already registered");
     }
     const createdUser = await User.create(newUser);
+
     const newLocation: Location = {
       user_id: createdUser.id,
       province: newUserData.location.province,
