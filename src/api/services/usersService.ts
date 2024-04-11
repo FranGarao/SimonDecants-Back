@@ -1,27 +1,27 @@
-import { initializeUser } from "../db/models/User";
-import { sequelizeInstance } from "../db/dbInstance";
-import { initializeUserLocation } from "../db/models/UserLocation";
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 import { Location } from "../interfaces/Location";
 import { User } from "../interfaces/User";
 // import { Users } from "../interfaces/users";
-const User = initializeUser(sequelizeInstance);
-const UserLocation = initializeUserLocation(sequelizeInstance);
+import { models } from "../db/dbInstance";
 
-export class UsersService {
+class UsersService {
   checkUserRegistered = async (normal_email: string) => {
-    const user = await User.findOne({ where: { normal_email }, raw: true });
+    const user = await models.User.findOne({
+      where: { normal_email },
+      raw: true,
+    });
     return user;
   };
   getUsers = async () => {
-    const users = await User.findAll({ raw: true });
+    const users = await models.User.findAll({ raw: true });
     return users;
   };
   createOne = async (newUserData: User) => {
     const hashedPw = bcrypt.hashSync(newUserData.password, 11);
     const normalEmail = newUserData.email.toUpperCase();
     const user = "user";
+
     //TODO Crear interfaz para newUser
     const newUser: any = {
       name: newUserData.name,
@@ -37,7 +37,7 @@ export class UsersService {
     if (userRegistered) {
       throw new Error("User already registered");
     }
-    const createdUser = await User.create(newUser);
+    const createdUser = await models.User.create(newUser);
 
     const newLocation: Location = {
       user_id: createdUser.id,
@@ -52,11 +52,11 @@ export class UsersService {
     return { user: createdUser, location };
   };
   createLocation = async (newLocation: any) => {
-    const location: any = await UserLocation.create(newLocation);
+    const location: any = await models.UserLocation.create(newLocation);
     return location;
   };
   login = async (email: string, password: string) => {
-    const user = await User.findOne({ where: { email }, raw: true });
+    const user = await models.User.findOne({ where: { email }, raw: true });
     const validPw = bcrypt.compareSync(password, user?.password);
     if (validPw) {
       return user;
@@ -66,7 +66,7 @@ export class UsersService {
   };
   logOut = async () => {};
   getLocations = async () => {
-    const locations = await UserLocation.findAll({
+    const locations = await models.UserLocation.findAll({
       raw: true,
     });
     return locations;
@@ -82,7 +82,8 @@ export class UsersService {
       domain: "localhost",
       path: "/",
       secure: false,
-      httpOnly: false, // Set httpOnly to true for security reasons (prevents client-side JavaScript from accessing the cookie)
+      httpOnly: false,
+      // Set httpOnly to true for security reasons (prevents client-side JavaScript from accessing the cookie)
 
       // secure: process.env.NODE_ENV === 'production' // Uncomment this line in production to ensure cookies are sent over HTTPS
     };
@@ -91,3 +92,5 @@ export class UsersService {
     req.session.user = user;
   };
 }
+
+export const usersService = new UsersService();

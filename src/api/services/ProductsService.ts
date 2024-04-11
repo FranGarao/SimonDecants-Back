@@ -1,27 +1,33 @@
-import { initializeProduct } from "../db/models/Product";
-import { sequelizeInstance } from "../db/dbInstance";
 import { Product } from "../interfaces/Product";
-const Product = initializeProduct(sequelizeInstance);
-
-export class ProductService {
+import { models } from "../db/dbInstance";
+class ProductService {
+  //TODO: Crear interfaz para newProduct
   createOne = async (newProduct: Partial<Product>) => {
-    const product = await Product.create(newProduct);
+    const product = await models.Product.create(newProduct);
     return product;
   };
   deleteOne = async (id: number) => {
-    const product = await Product.destroy({ where: { id } });
+    const product = await models.Product.destroy({ where: { id } });
     return product;
   };
   getProduct = async (id: number) => {
-    const product = await Product.findOne({ where: { id }, raw: true });
+    const product = await models.Product.findByPk(id);
     return product;
   };
   getAllProducts = async () => {
-    const products = await Product.findAll({ raw: true });
+    const products = await models.Product.findAll({
+      raw: true,
+      include: [{ association: "size" }],
+    });
     return products;
   };
   getProductsByCategory = async (category: string) => {
-    const products = await Product.findAll({ where: { category }, raw: true });
+    const products = await models.Product.findAll({
+      where: { category },
+      raw: true,
+    });
     return products;
   };
 }
+
+export const productService = new ProductService();

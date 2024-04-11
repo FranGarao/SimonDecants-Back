@@ -1,13 +1,11 @@
 // import { Session } from "express-session";
 import { Request, Response } from "express";
-import { UsersService } from "../services/usersService";
+import { usersService } from "../services/usersService";
 import { User } from "../db/models/User";
-
-const userServiceInstance = new UsersService();
 
 export class usersController {
   getUsers = async (_req: Request, res: Response) => {
-    userServiceInstance
+    usersService
       .getUsers()
       .then((users) => {
         res.json(users);
@@ -18,7 +16,7 @@ export class usersController {
       });
   };
   createOne = async (req: Request, res: Response) => {
-    userServiceInstance
+    usersService
       .createOne(req.body)
       .then((newUser) => {
         res.json(newUser);
@@ -31,7 +29,7 @@ export class usersController {
   login = async (req: Request, res: Response) => {
     const email = req.body.email;
     const password = req.body.password;
-    userServiceInstance
+    usersService
       .login(email, password)
       .then((user) => {
         if (user && "id" in user) {
@@ -45,7 +43,7 @@ export class usersController {
       });
   };
   getLocations = async (_req: Request, res: Response) => {
-    userServiceInstance
+    usersService
       .getLocations()
       .then((locations) => {
         res.json(locations);
@@ -68,7 +66,7 @@ export class usersController {
   setCookies = async (req: Request, res: Response) => {
     //TODO: arreglar esto ya que no tiene que estar hardcodeado
     const userLogin = await User.findByPk(18);
-    userServiceInstance.setCookies(req, res, userLogin);
+    usersService.setCookies(req, res, userLogin);
     res.json({ message: "Cookies set" });
   };
 }

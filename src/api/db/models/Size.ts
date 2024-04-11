@@ -1,5 +1,6 @@
 // En tu archivo de modelo
 import { Sequelize, DataTypes, Model } from "sequelize";
+import { Product } from "./Product";
 
 export class Size extends Model {
   public id!: number; // Note that the `null assertion` `!` is required in strict mode.
@@ -31,6 +32,10 @@ export function initializeSize(sequelize: Sequelize) {
       timestamps: false,
     }
   );
+  Size.hasMany(Product, {
+    as: "products",
+    foreignKey: "size_id",
+  });
 
   return Size;
 }

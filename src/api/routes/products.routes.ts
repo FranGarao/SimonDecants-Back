@@ -14,4 +14,6 @@ router.get("/:id/product", productsControllerInstance.getProductById);
 //POST /api/products/create/post
 router.post("/create", productsControllerInstance.postCreate);
 
+router.get("/test", productsControllerInstance.getProducts);
+
 export default router;

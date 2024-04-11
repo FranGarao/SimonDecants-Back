@@ -9,11 +9,11 @@ import cookieParser from "cookie-parser";
 import session from "express-session";
 const bodyParser = require("body-parser");
 
-/*Import Routes*/
+//#region Import Routes
 import usersRoutes from "./api/routes/users.routes";
 import productsRoutes from "./api/routes/products.routes";
 
-/*Middlewares*/
+// #region Middlewares
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -48,13 +48,11 @@ app.use(
     },
   })
 );
-/*Routes*/
-//users
+// #region Routes
 app.use(`${API}/users`, usersRoutes);
-//products
 app.use(`${API}/products`, productsRoutes);
 
-/*Inicializar el servidor*/
+//#regionInicializar el servidor*/
 app.listen(
   PORT,
   /*0.0.0.0 ,*/ () => {
