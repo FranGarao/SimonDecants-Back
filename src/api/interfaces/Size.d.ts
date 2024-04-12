@@ -1,5 +1,4 @@
 export interface Size {
-  user_id: string;
+  id?: number;
   size: string;
-  price: number;
 }

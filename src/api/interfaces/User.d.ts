@@ -1,5 +1,6 @@
 import { Location } from "./Location";
 export interface User {
+  id?: number;
   name: string;
   last_name: string;
   email: string;

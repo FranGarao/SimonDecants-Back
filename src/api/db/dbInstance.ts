@@ -106,17 +106,17 @@ models.Product.belongsTo(models.Size, {
   as: "size", // alias para la relación
 });
 
-models.User.hasMany(models.GuestUser, {
-  sourceKey: "id",
-  foreignKey: "user_id",
-  as: "guestUsers", // alias para la relación
-});
+// models.User.hasMany(models.GuestUser, {
+//   sourceKey: "id",
+//   foreignKey: "user_id",
+//   as: "guestUsers", // alias para la relación
+// });
 
-models.GuestUser.belongsTo(models.User, {
-  targetKey: "id",
-  foreignKey: "user_id",
-  as: "user", // alias para la relación
-});
+// models.GuestUser.belongsTo(models.User, {
+//   targetKey: "id",
+//   foreignKey: "user_id",
+//   as: "user", // alias para la relación
+// });
 
 models.Product.belongsToMany(models.Category, {
   through: "ProductCategory",

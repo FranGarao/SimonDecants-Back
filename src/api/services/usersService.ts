@@ -18,42 +18,63 @@ class UsersService {
     return users;
   };
   createOne = async (newUserData: User) => {
-    const hashedPw = bcrypt.hashSync(newUserData.password, 11);
-    const normalEmail = newUserData.email.toUpperCase();
-    const user = "user";
+    try {
 
-    //TODO Crear interfaz para newUser
-    const newUser: any = {
-      name: newUserData.name,
-      last_name: newUserData.last_name,
-      email: newUserData.email,
-      normal_email: normalEmail,
-      password: hashedPw,
-      phone: newUserData.phone,
-      type: user,
-    };
+      const hashedPw = bcrypt.hashSync(newUserData.password, 11);
+      const normalEmail = newUserData.email.toUpperCase();
+      const user = "user";
 
-    const userRegistered = await this.checkUserRegistered(newUser.normal_email);
-    if (userRegistered) {
-      throw new Error("User already registered");
+      //TODO Crear interfaz para newUser
+      const newUser: any = {
+        id: newUserData.id,
+        name: newUserData.name,
+        last_name: newUserData.last_name,
+        email: newUserData.email,
+        normal_email: normalEmail,
+        password: hashedPw,
+        phone: newUserData.phone,
+        type: user,
+      };
+      console.log(newUser);
+
+      const userRegistered = await this.checkUserRegistered(newUser.normal_email);
+      if (userRegistered) {
+        throw new Error("User already registered");
+      }
+      const createdUser = await models.User.create(newUser);
+
+      const newLocation: Location = {
+        id: newUserData.location.id,
+        user_id: createdUser.id,
+        province: newUserData.location.province,
+        city: newUserData.location.city,
+        address: newUserData.location.address,
+        address_number: newUserData.location.address_number,
+        zip_code: newUserData.location.zip_code,
+      };
+      console.log(newLocation, newUser);
+
+      const location = await this.createLocation(newLocation);
+
+
+      return { user: createdUser, location };
+    } catch (error) {
+      console.log({ error });
+      return error;
     }
-    const createdUser = await models.User.create(newUser);
-
-    const newLocation: Location = {
-      user_id: createdUser.id,
-      province: newUserData.location.province,
-      city: newUserData.location.city,
-      address: newUserData.location.address,
-      address_number: newUserData.location.address_number,
-      zip_code: newUserData.location.zip_code,
-    };
-
-    const location = await this.createLocation(newLocation);
-    return { user: createdUser, location };
   };
   createLocation = async (newLocation: any) => {
-    const location: any = await models.UserLocation.create(newLocation);
-    return location;
+    try {
+
+
+      console.log(newLocation);
+
+      const location: any = await models.UserLocation.create(newLocation);
+      return location;
+    } catch (error) {
+      console.log({ error });
+      return error;
+    }
   };
   login = async (email: string, password: string) => {
     const user = await models.User.findOne({ where: { email }, raw: true });
@@ -64,7 +85,7 @@ class UsersService {
       return { error: true, message: "Invalid password" };
     }
   };
-  logOut = async () => {};
+  logOut = async () => { };
   getLocations = async () => {
     const locations = await models.UserLocation.findAll({
       raw: true,

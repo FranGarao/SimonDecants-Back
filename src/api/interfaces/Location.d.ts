@@ -1,4 +1,5 @@
 export interface Location {
+  id?: number,
   user_id: number;
   address: string;
   address_number: string;
