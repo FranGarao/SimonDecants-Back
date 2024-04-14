@@ -1,15 +1,14 @@
 // En tu archivo de modelo
 import { Sequelize, DataTypes, Model } from "sequelize";
-import { Product } from "./Product";
 
-export class Size extends Model {
+export class ProductSize extends Model {
   public id!: number; // Note that the `null assertion` `!` is required in strict mode.
-  public size!: number;
-  public price!: number;
+  public size_id!: number;
+  public product_id!: number;
 }
 
-export function initializeSize(sequelize: Sequelize) {
-  Size.init(
+export function initializeProductSize(sequelize: Sequelize) {
+  ProductSize.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -17,25 +16,28 @@ export function initializeSize(sequelize: Sequelize) {
         primaryKey: true,
         autoIncrement: true,
       },
-      size: {
+      size_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references:{
+            model: 'sizes',
+            key: 'id'
+        }
       },
-      price: {
+      product_id: {
         type: DataTypes.FLOAT,
         allowNull: false,
-      },
+        references:{
+            model: 'products',
+            key: 'id'
+        } 
+     },
     },
     {
       sequelize,
-      tableName: "sizes",
+      tableName: "products_sizes",
       timestamps: false,
     }
   );
-  Size.hasMany(Product, {
-    as: "products",
-    foreignKey: "size_id",
-  });
-
-  return Size;
+  return ProductSize;
 }

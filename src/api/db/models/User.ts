@@ -2,14 +2,14 @@
 import { Sequelize, DataTypes, Model } from "sequelize";
 
 export class User extends Model {
-  public id!: number; // Note that the `null assertion` `!` is required in strict mode.
+  public id!: number; 
   public name!: string;
   public last_name!: string;
   public email!: string;
   public normal_email!: string;
   public password!: string;
-  public cp!: string;
   public phone!: string;
+  public type!: string;
 }
 
 export function initializeUser(sequelize: Sequelize) {
@@ -41,6 +41,10 @@ export function initializeUser(sequelize: Sequelize) {
       },
       phone: {
         type: DataTypes.STRING,
+      },
+      type: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     {
